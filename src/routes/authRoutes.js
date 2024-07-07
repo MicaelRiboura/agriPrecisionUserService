@@ -39,15 +39,15 @@ const JWT_SECRET = process.env.SECRET_KEY;
 /**
  * @swagger
  * tags:
- *   name: Auth
- *   description: The authentication managing API
+ *   name: Usuário
+ *   description: Rotas de autenticação de usuário
  */
 
 /**
  * @swagger
  * /auth/register:
  *   post:
- *     summary: Registers a new user
+ *     summary: Registra um novo usuário
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -72,7 +72,7 @@ const JWT_SECRET = process.env.SECRET_KEY;
  *               password: password123
  *     responses:
  *       201:
- *         description: The user was successfully registered
+ *         description: Usuário registrado com sucesso
  *         content:
  *           application/json:
  *             schema:
@@ -81,9 +81,9 @@ const JWT_SECRET = process.env.SECRET_KEY;
  *                 msg:
  *                   type: string
  *       400:
- *         description: User already exists
+ *         description: Usuário já existe
  *       500:
- *         description: Some server error
+ *         description: Algum erro no servidor
  */
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
@@ -103,9 +103,9 @@ router.post('/register', async (req, res) => {
             password: hashedPassword,
         });
 
-        res.status(201).json({ msg: 'User registered successfully' });
+        res.status(201).json({ msg: 'Usuário registrado com sucesso' });
     } catch (err) {
-        res.status(500).json({ msg: 'Server error' });
+        res.status(500).json({ msg: 'Erro ao registrar usuário' });
     }
 });
 
@@ -113,7 +113,7 @@ router.post('/register', async (req, res) => {
  * @swagger
  * /auth/login:
  *   post:
- *     summary: Logs in a user
+ *     summary: Realiza o login de um usuário
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -134,7 +134,7 @@ router.post('/register', async (req, res) => {
  *               password: password123
  *     responses:
  *       200:
- *         description: The user was successfully logged in
+ *         description: O usuário foi logado com sucesso
  *         content:
  *           application/json:
  *             schema:
@@ -142,10 +142,14 @@ router.post('/register', async (req, res) => {
  *               properties:
  *                 token:
  *                   type: string
+ *                 id:
+ *                   type: number
+ *                 email:
+ *                   type: string
  *       400:
- *         description: Invalid credentials
+ *         description: Credenciais inválidas
  *       500:
- *         description: Some server error
+ *         description: Algum erro no servidor
  */
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -153,12 +157,12 @@ router.post('/login', async (req, res) => {
     try {
         let user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(400).json({ msg: 'Invalid credentials' });
+            return res.status(400).json({ msg: 'Credenciais inválidas' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ msg: 'Invalid credentials' });
+            return res.status(400).json({ msg: 'Credenciais inválidas' });
         }
 
         const payload = {
@@ -170,10 +174,10 @@ router.post('/login', async (req, res) => {
 
         jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
             if (err) throw err;
-            res.json({ token });
+            res.json({ token, id: user.id, email: user.email });
         });
     } catch (err) {
-        res.status(500).json({ msg: 'Server error' });
+        res.status(500).json({ msg: 'Erro ao se logar como usuário' });
     }
 });
 
