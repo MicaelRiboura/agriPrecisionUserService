@@ -4,41 +4,35 @@
 
 <div align="center">
 
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![reactjs](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![tailwindcss](https://img.shields.io/badge/Tailwind%20CSS-06B6D4.svg?style=for-the-badge&logo=Tailwind-CSS&logoColor=white)
-![shadcnui](https://img.shields.io/badge/shadcn/ui-000000.svg?style=for-the-badge&logo=shadcn/ui&logoColor=white)
-![vitejs](https://img.shields.io/badge/Vite-646CFF.svg?style=for-the-badge&logo=Vite&logoColor=white)
-![html5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![css3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![javascript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black)
+![nodejs](https://img.shields.io/badge/Node.js-5FA04E.svg?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![express](https://img.shields.io/badge/Express-000000.svg?style=for-the-badge&logo=Express&logoColor=white)
+![sequelize](https://img.shields.io/badge/Sequelize-52B0E7.svg?style=for-the-badge&logo=Sequelize&logoColor=white)
 
 </div>
 
 # Agriprecision - Serviço de Autenticação de Usuário
 
-Recursos precisos para um plantio sustentável e eficiente.
+Seu plantio sustentável e eficiente.
 
-**Agriprecision** tem como objetivo contribuir na agricultura de precisão, definindo os requisitos das safras e do solo para uma produtividade ótima, por um lado, e para preservar os recursos, assegurar a sustentabilidade ambiental e a proteção, por outro. Assim, contribuindo para [os Objetivos de Desenvolvimento Sustentável do documento da ONU](https://brasil.un.org/pt-br/sdgs).
+**Agriprecision** tem como objetivo contribuir para a agricultura de precisão, definindo os requisitos das safras e do solo para se obter uma produtividade eficiente, com a preservação de recursos e assegurar a sustentabilidade ambiental. Assim, contribuindo para [o documento da ONU dos Objetivos de Desenvolvimento Sustentável](https://brasil.un.org/pt-br/sdgs).
 
-Portanto, trata-se de um Web App que permite aos agricultores controlarem a quantidade de insumos agrícolas aplicáveis dentro de áreas agrícolas definidas na fase de plantio.
-
-Projeto desenvolvido para o MVP na Sprint Arquitetura de Software da Pós Graduação de Engenharia de Software da PUC-Rio.
+Projeto desenvolvido para o MVP na Sprint: **Arquitetura de Software** da Pós Graduação de Engenharia de Software da PUC-Rio.
 
 
 ## Arquitetura de Software Desenvolvida
 
-O projeto foi desenvolvido em uma arquitetura baseada em microsserviços que possui como serviços de APIs externas a autenticação e de dados do clima, assim como foram desenvolvidos os serviços de gerenciamento de estoque de insumos agrícolas disponíveis e o gerenciamento do histórico de produção com base nas colheitas em talhões.
+O projeto foi desenvolvido em uma arquitetura baseada em microsserviços, na qual uma aplicação front-end monolítica gerencia todo o estado e o comportamento, enquanto utiliza microsserviços de apoio para recuperar dados ou executar as operações necessárias. Os microsserviços utilizados são: Serviço de autenticação, Serviço de dados do clima e Serviço de colheitas em talhões, que podem ser observados melhor no diagrama a seguir.
 
 ![diagrama da arquitetura](./doc-images/arq-diagram.jpg)
 
 
 ### Acesso aos componentes da Arquitetura
 
-- [Aplicação Front-end]()
-- [Serviço de insumos agrícolas]()
-- [Serviço de Colheitas em Talhões]()
+- [Aplicação Front-end](https://github.com/MicaelRiboura/agriprecisionWebApp)
+- [Serviço de Colheitas em Talhões](https://github.com/MicaelRiboura/agriPrecisionHarvestService)
 -  **Serviço de Autenticação de Usuário (Repositório Atual)**
--  [Serviço de Clima de Open Weather API]()
+-  [Serviço de Clima de Open Weather API](https://github.com/MicaelRiboura/agriprecisionWebApp/blob/develop/weather-api.docs.md)
 
 ## Como executar a aplicação com Docker
 
@@ -51,14 +45,25 @@ git clone https://github.com/MicaelRiboura/agriPrecisionUserService.git
 
 > ⚠️ Após clonar o repositório, é necessário ir ao diretório raiz do projeto, pelo terminal, para poder executar os comandos descritos abaixo.
 
-### 2 - Criando a imagem Docker
+### 2 - Criando arquivo *.env*
+
+O próximo passo é criar o arquivo com as configurações de ambiente. Para isso, crie um arquivo com o nome `.env` e preencha-o com as chaves presentes abaixo e os valores corretos:
+
+```
+SECRET_KEY=
+PORT=
+```
+
+> ⚠️ Atenção! Esse exemplo possui apenas as chaves sem valores. Para conseguir executar a aplicação sem nenhum problema, é necessário que preencha manualmente os valores, como a porta de execução da aplicação e a chave secreta de autenticação para executar em sua máquina.
+
+### 3 - Criando a imagem Docker
 Primeiro, você deve criar uma imagem Docker com o seguinte comando:
 
 ```
 docker build -t authentication-service . 
 ```
 
-### 3 - Rodando container Docker
+### 4 - Rodando container Docker
 Para executar um container Docker com base na imagem criada através do seguinte comando:
 
 ```
@@ -83,20 +88,31 @@ git clone https://github.com/MicaelRiboura/agriPrecisionUserService.git
 
 > ⚠️ Após clonar o repositório, é necessário ir ao diretório raiz do projeto, pelo terminal, para poder executar os comandos descritos abaixo.
 
+### 2 - Criando arquivo *.env*
+
+O próximo passo é criar o arquivo com as configurações de ambiente. Para isso, crie um arquivo com o nome `.env` e preencha-o com as chaves presentes abaixo e os valores corretos:
+
+```
+SECRET_KEY=
+PORT=
+```
+
+> ⚠️ Atenção! Esse exemplo possui apenas as chaves sem valores. Para conseguir executar a aplicação sem nenhum problema, é necessário que preencha manualmente os valores, como a porta de execução da aplicação e a chave secreta de autenticação para executar a API em sua máquina.
+
 #
 
-Para executar a aplicação é necessário ter todas as libs (bibliotecas) python listadas no arquivo `requirements.txt` instaladas. 
+Para executar a aplicação é necessário ter todas as libs (bibliotecas) python listadas no arquivo `package.json` instaladas. 
 
 #
 
-### 2 - Instalando as dependências
+### 3 - Instalando as dependências
 
 Para instalar as libs listadas no arquivo `package.json`, execute o comando abaixo:
 
 ```
 npm install
 ```
-### 3 - Executando a API
+### 4 - Executando a API
 Para executar a API, basta executar o seguinte comando:
 
 ```
