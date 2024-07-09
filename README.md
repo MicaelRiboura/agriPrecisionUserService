@@ -60,14 +60,14 @@ PORT=
 Primeiro, você deve criar uma imagem Docker com o seguinte comando:
 
 ```
-docker build -t authentication-service . 
+docker build -t agri-authentication-service . 
 ```
 
 ### 4 - Rodando container Docker
 Para executar um container Docker com base na imagem criada através do seguinte comando:
 
 ```
-docker run -p 3333:3333 authentication-service
+docker run -p 3333:3333 agri-authentication-service
 ```
 
 Ao final, cole esse endereço no seu navegador para visualizar a documentação da API e suas rotas:
