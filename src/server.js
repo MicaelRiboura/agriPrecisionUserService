@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const sequelize = require('./config/database');
+const authRoutes = require('./routes/authRoutes');
 const { swaggerUi, specs } = require('./config/swagger');
 
 const app = express();
@@ -13,6 +14,7 @@ sequelize.sync().then(() => {
 }).catch(err => console.log('Error connection database:', err));
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
