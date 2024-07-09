@@ -6,15 +6,10 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Agriprecision - Serviço de Autenticação API',
+            title: 'Agriprecision - Serviço de Usuário API',
             version: '1.0.0',
-            description: 'Uma API Express com autenticação JWT',
+            description: 'Uma API Express para a autenticação de usuários de agriprecision',
         },
-        // servers: [
-        //     {
-        //         url: `http://localhost:3333/api`,
-        //     },
-        // ],
     },
     apis: ['./src/routes/*.js'],
 };
